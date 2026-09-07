@@ -119,6 +119,25 @@ select {
     transition: border-color 0.2s;
 }
 
+textarea {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 0.9rem;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+textarea:focus {
+    border-color: var(--primary-color);
+}
+
 select {
     width: auto;
     cursor: pointer;

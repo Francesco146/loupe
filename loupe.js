@@ -3,6 +3,7 @@
 const MAX_LEN = 100;
 let MIN_LEN = 2;
 let REQ_MODIFIER = "none";
+let BLACKLIST = [];
 
 let highlight_active = false;
 let debounce_timer = null;
@@ -16,12 +17,28 @@ function update_keys(e) {
 }
 
 async function load_settings() {
-    let data = await browser.storage.sync.get(["min_length", "modifier_key"]);
+    let data = await browser.storage.sync.get([
+        "min_length",
+        "modifier_key",
+        "blacklist",
+    ]);
     if (data.min_length !== undefined) MIN_LEN = data.min_length;
     if (data.modifier_key !== undefined) REQ_MODIFIER = data.modifier_key;
+    if (data.blacklist !== undefined) {
+        BLACKLIST = data.blacklist
+            .split("\n")
+            .map((d) => d.trim().toLowerCase())
+            .filter((d) => d.length > 0);
+    }
 }
 
 async function evaluate_selection() {
+    const currentHost = window.location.hostname.toLowerCase();
+    const isBlacklisted = BLACKLIST.some((domain) =>
+        currentHost.includes(domain),
+    );
+    if (isBlacklisted) return;
+
     const selection = window.getSelection().toString();
 
     let modifier_met = true;

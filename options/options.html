@@ -116,6 +116,16 @@
                     </select>
                 </div>
 
+                <div class="option-group" style="flex-direction: column; align-items: flex-start;">
+                    <label for="blacklist" style="margin-bottom: 8px;">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"></circle> <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+                        </svg>
+                        Disabled Domains (one per line)
+                    </label>
+                    <textarea id="blacklist" rows="3" placeholder="docs.google.com&#10;notion.so"></textarea>
+                </div>
+
                 <button type="submit" id="save_btn">Save Settings</button>
             </form>
         </div>

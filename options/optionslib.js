@@ -7,6 +7,7 @@ export const OPTS = {
     trim_selection: true,
     min_length: 2,
     modifier_key: "none",
+    blacklist: "docs.google.com\nnotion.so",
 };
 
 export async function store_option(id, value) {
