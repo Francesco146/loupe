@@ -1,21 +1,26 @@
 "use strict";
 
-// Options with default values
+// default values
 export const OPTS = {
-    case_sensitive: true,
+    case_sensitive: false,
     entire_word: true,
-    trim_selection: true
+    trim_selection: true,
+    min_length: 2,
+    modifier_key: "none",
 };
 
 export async function store_option(id, value) {
-    await browser.storage.sync.set({ [id]: value ? "true" : "false" });
+    await browser.storage.sync.set({ [id]: value });
 }
 
 export async function load_option(id) {
-    let value = (await browser.storage.sync.get(id))[id];
-    if (value) {
-        return value === "true"
-    } else {
-        return OPTS[id];
+    let data = await browser.storage.sync.get(id);
+
+    if (data.hasOwnProperty(id)) {
+        // backwards compatibility for older string-based "true"
+        if (data[id] === "true") return true;
+        if (data[id] === "false") return false;
+        return data[id];
     }
+    return OPTS[id];
 }

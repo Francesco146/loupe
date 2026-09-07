@@ -1,0 +1,167 @@
+:root {
+    --bg-color: #f9f9fb;
+    --text-color: #15141a;
+    --card-bg: #ffffff;
+    --border-color: #e0e0e6;
+    --primary-color: #0060df;
+    --primary-hover: #003eaa;
+    --success-color: #058b00;
+    --error-color: #d70022;
+    --button-text: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #1c1b22;
+        --text-color: #fbfbfe;
+        --card-bg: #2b2a33;
+        --border-color: #52525e;
+        --primary-color: #00ddff;
+        --primary-hover: #80ebff;
+        --success-color: #30e60b;
+        --error-color: #ff848b;
+        --button-text: #000000;
+    }
+}
+
+body {
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    margin: 0;
+}
+
+.container {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 24px;
+    width: 100%;
+    max-width: 350px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.header-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+}
+
+.header-group h2 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+}
+
+.option-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+label {
+    cursor: pointer;
+    font-size: 0.95rem;
+    flex-grow: 1;
+    user-select: none;
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.7;
+}
+
+input[type="checkbox"] {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-color);
+    margin: 0;
+}
+
+input[type="number"],
+select {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 6px;
+    font-size: 0.9rem;
+    width: 70px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+select {
+    width: auto;
+    cursor: pointer;
+}
+
+input[type="number"]:focus,
+select:focus {
+    border-color: var(--primary-color);
+}
+
+input[type="number"]:invalid {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 1px var(--error-color);
+}
+
+button {
+    background-color: var(--primary-color);
+    color: var(--button-text);
+    border: none;
+    border-radius: 4px;
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 12px;
+    transition:
+        background-color 0.2s,
+        transform 0.1s;
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button.saved {
+    background-color: var(--success-color);
+}
+
+button.error {
+    background-color: var(--error-color);
+}

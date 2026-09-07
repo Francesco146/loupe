@@ -1,21 +1,125 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Loupe Options</title>
+        <link rel="stylesheet" href="options.css" />
+    </head>
 
-<html>
+    <body>
+        <div class="container">
+            <div class="header-group">
+                <img
+                    src="../icons/loupe-128.png"
+                    alt="Loupe Logo"
+                    class="logo"
+                />
+                <h2>Loupe Settings</h2>
+            </div>
 
-<head>
-    <meta charset="utf-8">
-</head>
+            <form id="options_form" novalidate>
+                <div class="option-group">
+                    <label for="case_sensitive">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M4 13h6" />
+                            <path d="M4 18l3-11 3 11" />
+                            <path
+                                d="M15 14a2 2 0 1 0 0 4h4v-6h-4c-1.1 0-2 .9-2 2z"
+                            />
+                        </svg>
+                        Make search case-sensitive
+                    </label>
+                    <input type="checkbox" id="case_sensitive" />
+                </div>
 
-<body>
+                <div class="option-group">
+                    <label for="entire_word">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M5 6H3v12h2" />
+                            <path d="M19 6h2v12h-2" />
+                            <path d="M7 12h10" />
+                        </svg>
+                        Match only entire words
+                    </label>
+                    <input type="checkbox" id="entire_word" />
+                </div>
 
-    <form>
-        <br> Make search case-sensitive<input type="checkbox" id="case_sensitive" /> <br>
-        <br> Match only entire words<input type="checkbox" id="entire_word" /> <br>
-        <br> Trim selection<input type="checkbox" id="trim_selection" /> <br>
-        <button type="submit">Save</button>
-    </form>
+                <div class="option-group">
+                    <label for="trim_selection">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <circle cx="6" cy="6" r="3"></circle>
+                            <circle cx="6" cy="18" r="3"></circle>
+                            <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
+                            <line x1="14.47" y1="14.48" x2="20" y2="20"></line>
+                            <line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+                        </svg>
+                        Trim selection
+                    </label>
+                    <input type="checkbox" id="trim_selection" />
+                </div>
 
-    <script type="module" src="options.js"></script>
-</body>
+                <div class="option-group">
+                    <label for="min_length">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <rect
+                                x="2"
+                                y="6"
+                                width="20"
+                                height="12"
+                                rx="2"
+                            ></rect>
+                            <path d="M6 6v4" />
+                            <path d="M10 6v4" />
+                            <path d="M14 6v4" />
+                            <path d="M18 6v4" />
+                        </svg>
+                        Minimum word length
+                    </label>
+                    <input
+                        type="number"
+                        id="min_length"
+                        min="1"
+                        max="50"
+                        required
+                    />
+                </div>
 
+                <div class="option-group">
+                    <label for="modifier_key">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <rect
+                                x="2"
+                                y="4"
+                                width="20"
+                                height="16"
+                                rx="2"
+                                ry="2"
+                            ></rect>
+                            <line x1="6" y1="8" x2="6.01" y2="8"></line>
+                            <line x1="10" y1="8" x2="10.01" y2="8"></line>
+                            <line x1="14" y1="8" x2="14.01" y2="8"></line>
+                            <line x1="18" y1="8" x2="18.01" y2="8"></line>
+                            <line x1="6" y1="12" x2="6.01" y2="12"></line>
+                            <line x1="10" y1="12" x2="10.01" y2="12"></line>
+                            <line x1="14" y1="12" x2="14.01" y2="12"></line>
+                            <line x1="18" y1="12" x2="18.01" y2="12"></line>
+                            <line x1="8" y1="16" x2="16" y2="16"></line>
+                        </svg>
+                        Require modifier key
+                    </label>
+                    <select id="modifier_key">
+                        <option value="none">None</option>
+                        <option value="alt">Alt / Option (⌥)</option>
+                        <option value="ctrl">Ctrl / Cmd (⌘)</option>
+                        <option value="shift">Shift (⇧)</option>
+                    </select>
+                </div>
+
+                <button type="submit" id="save_btn">Save Settings</button>
+            </form>
+        </div>
+
+        <script type="module" src="options.js"></script>
+    </body>
 </html>
