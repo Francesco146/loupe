@@ -1,32 +1,71 @@
 "use strict";
 
-const MIN_LEN = 2;
 const MAX_LEN = 100;
+let MIN_LEN = 2;
+let REQ_MODIFIER = "none";
 
-async function text_highlighted(highlight_active) {
-    const s = window.getSelection().toString();
+let highlight_active = false;
+let debounce_timer = null;
 
-    if (is_selection_valid(s)) {
-        await browser.runtime.sendMessage({ "type": "highlight", "selection": s });
-        return true;
-    } else if (highlight_active) {
-        await browser.runtime.sendMessage({ "type": "clear" });
-    }
+let active_keys = { altKey: false, ctrlKey: false, shiftKey: false };
 
-    return false;
+function update_keys(e) {
+    active_keys.altKey = e.altKey;
+    active_keys.ctrlKey = e.ctrlKey || e.metaKey; // metaKey handles mac cmd
+    active_keys.shiftKey = e.shiftKey;
 }
 
-function is_selection_valid(s) {
-    return s.length >= MIN_LEN && s.length <= MAX_LEN;
+async function load_settings() {
+    let data = await browser.storage.sync.get(["min_length", "modifier_key"]);
+    if (data.min_length !== undefined) MIN_LEN = data.min_length;
+    if (data.modifier_key !== undefined) REQ_MODIFIER = data.modifier_key;
+}
+
+async function evaluate_selection() {
+    const selection = window.getSelection().toString();
+
+    let modifier_met = true;
+    if (REQ_MODIFIER === "alt") modifier_met = active_keys.altKey;
+    if (REQ_MODIFIER === "ctrl") modifier_met = active_keys.ctrlKey;
+    if (REQ_MODIFIER === "shift") modifier_met = active_keys.shiftKey;
+
+    const valid =
+        selection.length >= MIN_LEN &&
+        selection.length <= MAX_LEN &&
+        modifier_met;
+
+    if (valid) {
+        await browser.runtime.sendMessage({
+            type: "highlight",
+            selection: selection,
+        });
+        highlight_active = true;
+    } else if (highlight_active) {
+        await browser.runtime.sendMessage({ type: "clear" });
+        highlight_active = false;
+    }
 }
 
 function main() {
-    let highlight_active = false;
+    load_settings();
 
-    window.addEventListener("mouseup", async () => {
-        highlight_active = await text_highlighted(highlight_active);
+    // keep settings in sync if changed in another tab
+    browser.storage.onChanged.addListener((changes, area) => {
+        if (area === "sync") {
+            if (changes.min_length) MIN_LEN = changes.min_length.newValue;
+            if (changes.modifier_key)
+                REQ_MODIFIER = changes.modifier_key.newValue;
+        }
+    });
+
+    document.addEventListener("mousedown", update_keys);
+    document.addEventListener("keydown", update_keys);
+    document.addEventListener("keyup", update_keys);
+
+    document.addEventListener("selectionchange", () => {
+        clearTimeout(debounce_timer);
+        debounce_timer = setTimeout(evaluate_selection, 250);
     });
 }
 
 main();
-
