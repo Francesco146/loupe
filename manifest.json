@@ -42,7 +42,13 @@
     ],
     "browser_specific_settings": {
         "gecko": {
-            "id": "@loupe-v2-extension"
+            "id": "@loupe-v2-extension",
+            "strict_min_version": "140.0",
+            "data_collection_permissions": {
+                "required": [
+                    "none"
+                ]
+            }
         }
     }
 }
