@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Loupe",
+    "name": "Loupe v2",
     "version": "2.0",
-    "homepage_url": "https://github.com/scullionw/loupe/",
+    "homepage_url": "https://github.com/Francesco146/loupe/",
     "description": "Highlights occurrences of selected word in page.",
     "icons": {
         "96": "icons/loupe-96.png",
@@ -10,7 +10,7 @@
         "256": "icons/loupe-256.png"
     },
     "action": {
-        "default_title": "Loupe",
+        "default_title": "Loupe v2",
         "default_icon": {
             "96": "icons/loupe-96.png",
             "128": "icons/loupe-128.png",
@@ -42,7 +42,7 @@
     ],
     "browser_specific_settings": {
         "gecko": {
-            "id": "@loupe-extension"
+            "id": "@loupe-v2-extension"
         }
     }
 }
